@@ -34,3 +34,9 @@ sleep 30
 $DIR/oadm --config $CDIR/master/admin.kubeconfig policy add-scc-to-user hostnetwork system:serviceaccount:default:router
 $DIR/oadm --config $CDIR/master/admin.kubeconfig policy add-cluster-role-to-user cluster-reader system:serviceaccount:default:router
 $DIR/oadm --config $CDIR/master/admin.kubeconfig router
+
+echo "STDERR: "
+cat $DIR/logs/os.err
+
+echo "STDOUT: "
+cat $DIR/logs/os.log
