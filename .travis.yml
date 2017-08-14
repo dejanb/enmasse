@@ -32,6 +32,7 @@ script:
 - ./systemtests/scripts/run_test_component.sh templates/install /tmp/openshift systemtests
 - "curl -s ${SCRIPTS}/generate-bintray-descriptor.sh | bash /dev/stdin enmasse templates/build/enmasse-${TAG}.tgz > .bintray.json"
 after_failure:
+-  cat systemtests/build/test-results/test/*.xml
 - "./systemtests/scripts/print_logs.sh /tmp/openshift"
 after_success:
 - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
