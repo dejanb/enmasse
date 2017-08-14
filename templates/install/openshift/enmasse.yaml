@@ -1131,9 +1131,9 @@ objects:
             name: amqp-auth
           resources:
             limits:
-              memory: 16Mi
+              memory: 64Mi
             requests:
-              memory: 16Mi
+              memory: 64Mi
         serviceAccount: enmasse-service-account
         volumes:
         - name: ssl-certs
