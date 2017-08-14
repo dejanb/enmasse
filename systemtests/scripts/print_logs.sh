@@ -17,9 +17,9 @@ do
     do
         runcmd "oc logs -c $container $pod"
         if [ "$container" == "router" ]; then
-            runcmd "oc rsh -c $container $pod qdmanage query --type=address"
-            runcmd "oc rsh -c $container $pod qdmanage query --type=connection"
-            runcmd "oc rsh -c $container $pod qdmanage query --type=connector"
+            runcmd "oc rsh -c $container $pod python /usr/bin/qdmanage query --type=address"
+            runcmd "oc rsh -c $container $pod python /usr/bin/qdmanage query --type=connection"
+            runcmd "oc rsh -c $container $pod python /usr/bin/qdmanage query --type=connector"
         fi
     done
 done
