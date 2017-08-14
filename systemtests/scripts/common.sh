@@ -52,6 +52,7 @@ function run_test() {
     export OPENSHIFT_MULTITENANT=$MULTITENANT
     export OPENSHIFT_TOKEN=`oc whoami -t`
     export OPENSHIFT_MASTER_URL=$OPENSHIFT_URL
+    export PN_TRACE_FRM=1
     ../gradlew :systemtests:test -Psystemtests --rerun-tasks -Djava.net.preferIPv4Stack=true
 }
 
