@@ -43,6 +43,7 @@ public abstract class TestBase {
         logCollector = new LogCollector(openShift, testLogs);
         addressApiClient = new AddressApiClient(openShift.getRestEndpoint(), environment.isMultitenant());
         addressApiClient.deployInstance(getInstanceName().toLowerCase());
+        deploy();
     }
 
     @After
