@@ -21,6 +21,9 @@ pushd $SYSTEMTESTS
 run_test $OPENSHIFT_PROJECT true $MULTITENANT $OPENSHIFT_URL $OPENSHIFT_USER || failure=$(($failure + 1))
 popd
 
+echo "Pods:"
+oc get pods
+
 $SYSTEMTESTS/scripts/collect_logs.sh $OC_PATH $ARTIFACTS_DIR
 
 if [ $failure -gt 0 ]
