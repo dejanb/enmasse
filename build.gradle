@@ -116,6 +116,12 @@ subprojects {
 }
 
 
+apply plugin: 'jacoco'
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
 task codeCoverageReport(type: JacocoReport) {
     executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
 
