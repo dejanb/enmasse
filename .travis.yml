@@ -40,6 +40,9 @@ after_success:
 - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   ./gradlew tagVersion pushVersion; fi
 env:
+  matrix:
+    - TEST_ENV=openshift
+    - TEST_ENV=kube
   global:
   - COMMIT=${TRAVIS_COMMIT::8}
   - secure: x+tvxuIjSuZKLO4iO+/kqMb6RUqU7phvjV1RRQNXmAWqIBTq0cxtA4TyadUhlPazUDZLNKGEXW4EHTr7f2YwKefWKQHyZ6FhQcdb8lv8M9GAxDzRtalDh+/tip2yyZgBDakQwDytH0Dsiuh+kFuvIGCBagLesDNaMWxM7jc0E/qFNfrmJDu+jYw5SkwMzAqGeXIcWHE5Ry0iDqMz3k9A/L4vfJaKYK8axV/TJhVqCQu+L5ZLb091nj8VKigSZ89kukn14y4WhKdcf0rc1eS8fbrXrw6Vq9TXszSUVDv6lrT5ehHPVRCh2LQLpuT66hbQM/2mvysMcbWM1QH8shbUZbaCXKCB7GAfwlEkbzVQ0nBNvX7GJ32yzxRKNxr5X9O7UG9uKEC/nO3xjXp6yaFlBwC6ymAa5uwvGL6GjC5Kt5WRvrMFUncRwfEFGs3yTWSu7O5plY3KEYt0vV0quaqEZ+m7s++j6v1FxFv3izzC9IlrsJWPGxe+9ZFUkgaYkDqs6bMqXnLIQ7GF6KvWMETiXnCBdCZH68Up76oIybqmPH9kzUINi2fy1amI28oOlEi3neFncYAojzW4l7eRk7p0xGwTAucsEfUl+MsK+xiw03wquAWCuvMp8exga2ophaTZLYC2Pv+LEt4TP/clzmbTxV8qi2jQ9LBwA3R2CAdfz+s=
