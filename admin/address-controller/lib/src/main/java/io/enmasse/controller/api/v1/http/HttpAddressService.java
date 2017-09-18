@@ -91,6 +91,7 @@ public class HttpAddressService {
     @Consumes({MediaType.APPLICATION_JSON})
     public Response appendAddresses(@PathParam("addressSpace") String addressSpaceName, AddressList addressList) {
         try {
+            verifyAddresses(addressSpaceName, addressList);
             AddressList addresses = apiHelper.appendAddresses(addressSpaceName, addressList);
             return Response.ok(addresses).build();
         } catch (Exception e) {
@@ -99,11 +100,20 @@ public class HttpAddressService {
         }
     }
 
+    private void verifyAddresses(String addressSpaceName, AddressList addressList) {
+        for (Address address : addressList) {
+            if (!address.getAddressSpace().equals(addressSpaceName)) {
+                throw new IllegalArgumentException("Address space " + addressSpaceName + " does not address space specified for address " + address);
+            }
+        }
+    }
+
     @PUT
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response replaceAddresses(@PathParam("addressSpace") String addressSpaceName, AddressList addressList) {
         try {
+            verifyAddresses(addressSpaceName, addressList);
             AddressList addresses = apiHelper.putAddresses(addressSpaceName, addressList);
             return Response.ok(addresses).build();
         } catch (Exception e) {
