@@ -38,10 +38,14 @@ public class AddressApiClient {
 
         ObjectNode metadata = config.putObject("metadata");
         metadata.put("name", name);
+        metadata.put("namespace", name);
 
         ObjectNode spec = config.putObject("spec");
-        spec.put("namespace", name);
         spec.put("type", "standard");
+
+        // TODO: Support using 'standard' authservice
+        ObjectNode authService = spec.putObject("authService");
+        authService.put("type", "none");
 
         CountDownLatch latch = new CountDownLatch(1);
         HttpClientRequest request;
@@ -79,6 +83,7 @@ public class AddressApiClient {
             ObjectNode entry = items.addObject();
             ObjectNode metadata = entry.putObject("metadata");
             metadata.put("name", destination.getAddress());
+            metadata.put("addressSpace", addressSpace);
             ObjectNode spec = entry.putObject("spec");
             spec.put("address", destination.getAddress());
             spec.put("type", destination.getType());
