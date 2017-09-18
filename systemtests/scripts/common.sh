@@ -17,7 +17,7 @@ function setup_test() {
     local OPENSHIFT_URL=${4:-"https://localhost:8443"}
     local OPENSHIFT_USER=${5:-"test"}
 
-    DEPLOY_ARGS="-y -n $PROJECT_NAME -u $OPENSHIFT_USER -m $OPENSHIFT_URL"
+    DEPLOY_ARGS="-y -n $PROJECT_NAME -u $OPENSHIFT_USER -m $OPENSHIFT_URL -k admin"
 
     if [ "$MULTITENANT" == true ]; then
         DEPLOY_ARGS="$DEPLOY_ARGS -p MULTIINSTANCE=true"
