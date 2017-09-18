@@ -13,8 +13,14 @@ ARTIFACTS_DIR=${ARTIFACTS_DIR:-artifacts}
 MULTITENANT=${MULTITENANT:-true}
 
 export PATH="$OC_PATH:$PATH"
-oc login -u ${OPENSHIFT_USER} -p ${OPENSHIFT_PASSWD} --insecure-skip-tls-verify=true ${OPENSHIFT_URL}
 
+if [ "$MULTITENANT" == true ]; then
+    oc login -u system:admin --insecure-skip-tls-verify=true ${OPENSHIFT_URL}
+    oc adm add-cluster-role-to-user cluster-admin system:serviceaccount:$(oc project -q):enmasse-service-account
+    oc adm policy add-cluster-role-to-user cluster-admin $OPENSHIFT_USER
+fi
+
+oc login -u ${OPENSHIFT_USER} -p ${OPENSHIFT_PASSWD} --insecure-skip-tls-verify=true ${OPENSHIFT_URL}
 setup_test $OPENSHIFT_PROJECT $ENMASSE_DIR $MULTITENANT $OPENSHIFT_URL $OPENSHIFT_USER
 
 pushd $SYSTEMTESTS

@@ -2,9 +2,6 @@
 DIR=`readlink -f \`dirname $0\``
 set -x
 
-KUBECONFIG=/tmp/openshift/config/master/admin.kubeconfig
-OADM="oc adm --config $KUBECONFIG"
-
 function download_enmasse() {
     curl -0 https://dl.bintray.com/enmasse/snapshots/latest/enmasse-latest.tar.gz | tar -zx
     D=`readlink -f enmasse-latest`
@@ -25,11 +22,6 @@ function setup_test() {
     fi
 
     $ENMASSE_DIR/deploy-openshift.sh $DEPLOY_ARGS
-
-    if [ "$MULTITENANT" == true ]; then
-        $OADM add-cluster-role-to-user cluster-admin system:serviceaccount:$(oc project -q):enmasse-service-account
-        $OADM policy add-cluster-role-to-user cluster-admin $OPENSHIFT_USER
-    fi
 }
 
 function run_test() {
