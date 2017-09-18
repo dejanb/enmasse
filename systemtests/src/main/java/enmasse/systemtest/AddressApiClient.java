@@ -32,13 +32,10 @@ public class AddressApiClient {
     }
 
     public void createAddressSpace(String name) throws JsonProcessingException, InterruptedException {
-        ObjectNode root = mapper.createObjectNode();
-        root.put("apiVersion", "v1");
-        root.put("kind", "AddressSpaceList");
+        ObjectNode config = mapper.createObjectNode();
+        config.put("apiVersion", "v1");
+        config.put("kind", "AddressSpace");
 
-        ArrayNode array = root.putArray("items");
-
-        ObjectNode config = array.addObject();
         ObjectNode metadata = config.putObject("metadata");
         metadata.put("name", name);
 
@@ -55,7 +52,7 @@ public class AddressApiClient {
                 latch.countDown();
             }
         });
-        request.end(Buffer.buffer(mapper.writeValueAsBytes(root)));
+        request.end(Buffer.buffer(mapper.writeValueAsBytes(config)));
         latch.await(30, TimeUnit.SECONDS);
     }
 
