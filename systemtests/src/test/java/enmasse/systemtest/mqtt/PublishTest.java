@@ -33,11 +33,6 @@ import static org.junit.Assert.assertThat;
  */
 public class PublishTest extends MqttTestBase {
 
-    @Override
-    protected String getInstanceName() {
-        return this.getClass().getSimpleName();
-    }
-
     @Test
     public void testPublishQoS0() throws Exception {
 

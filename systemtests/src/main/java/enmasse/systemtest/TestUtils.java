@@ -115,8 +115,8 @@ public class TestUtils {
         }
     }
 
-    public static void deploy(AddressApiClient apiClient, OpenShift openShift, TimeoutBudget budget, String instanceName, Destination ... destinations) throws Exception {
-        apiClient.deploy(instanceName, destinations);
+    public static void deploy(AddressApiClient apiClient, OpenShift openShift, TimeoutBudget budget, String addressSpace, Destination ... destinations) throws Exception {
+        apiClient.deploy(addressSpace, destinations);
         Set<String> groups = new HashSet<>();
         for (Destination destination : destinations) {
             if (Destination.isQueue(destination) || Destination.isTopic(destination)) {

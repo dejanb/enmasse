@@ -51,9 +51,4 @@ public class BroadcastTest extends AmqpTestBase {
         assertTrue(recvResults.get(1).get(10, TimeUnit.SECONDS).size() >= msgs.size());
         assertTrue(recvResults.get(2).get(10, TimeUnit.SECONDS).size() >= msgs.size());
     }
-
-    @Override
-    protected String getInstanceName() {
-        return this.getClass().getSimpleName();
-    }
 }

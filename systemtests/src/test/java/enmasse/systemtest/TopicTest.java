@@ -163,9 +163,4 @@ public class TopicTest extends AmqpTestBase {
         Logging.log.info("Sending unsubscribe");
         subClient.sendMessages("$subctrl", unsub).get(1, TimeUnit.MINUTES);
     }
-
-    @Override
-    protected String getInstanceName() {
-        return this.getClass().getSimpleName();
-    }
 }

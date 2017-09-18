@@ -31,18 +31,18 @@ public abstract class TestBase {
     protected AddressApiClient addressApiClient;
     protected Environment environment = new Environment();
     protected OpenShift openShift;
-
-
-    protected abstract String getInstanceName();
+    private static final String ADDRESS_SPACE = "testspace";
 
     @Before
     public void setup() throws Exception {
-        openShift = new OpenShift(environment, environment.isMultitenant() ? getInstanceName().toLowerCase() : environment.namespace());
+        openShift = new OpenShift(environment, environment.isMultitenant() ? ADDRESS_SPACE : environment.namespace());
         File testLogs = new File("/tmp/testlogs");
         testLogs.mkdirs();
         logCollector = new LogCollector(openShift, testLogs);
         addressApiClient = new AddressApiClient(openShift.getRestEndpoint(), environment.isMultitenant());
-        addressApiClient.deployInstance(getInstanceName().toLowerCase());
+        if (environment.isMultitenant()) {
+            addressApiClient.createAddressSpace(ADDRESS_SPACE);
+        }
     }
 
     @After
@@ -54,7 +54,7 @@ public abstract class TestBase {
 
     protected void deploy(Destination ... destinations) throws Exception {
         TimeoutBudget budget = new TimeoutBudget(5, TimeUnit.MINUTES);
-        TestUtils.deploy(addressApiClient, openShift, budget, getInstanceName().toLowerCase(), destinations);
+        TestUtils.deploy(addressApiClient, openShift, budget, ADDRESS_SPACE, destinations);
     }
 
     protected void scale(Destination destination, int numReplicas) throws Exception {
