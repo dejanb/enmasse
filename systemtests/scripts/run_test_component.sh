@@ -15,7 +15,7 @@ MULTITENANT=${MULTITENANT:-true}
 export PATH="$OC_PATH:$PATH"
 
 if [ "$MULTITENANT" == true ]; then
-    oc login -u system:admin --insecure-skip-tls-verify=true ${OPENSHIFT_URL}
+    oc login -u system:admin
     oc adm add-cluster-role-to-user cluster-admin system:serviceaccount:$(oc project -q):enmasse-service-account
     oc adm policy add-cluster-role-to-user cluster-admin $OPENSHIFT_USER
 fi
