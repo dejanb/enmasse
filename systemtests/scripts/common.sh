@@ -2,7 +2,8 @@
 DIR=`readlink -f \`dirname $0\``
 set -x
 
-OADM="oc adm --config openshift.local.config/master/admin.kubeconfig"
+KUBECONFIG=/tmp/openshift/config/master/admin.kubeconfig
+OADM="oc adm --config $KUBECONFIG"
 
 function download_enmasse() {
     curl -0 https://dl.bintray.com/enmasse/snapshots/latest/enmasse-latest.tar.gz | tar -zx
