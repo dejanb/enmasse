@@ -107,7 +107,6 @@ public class QueueTest extends AmqpTestBase {
         }
 
         assertThat(actual, is(msgs.size()));
-
     }
 }
 
