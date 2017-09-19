@@ -15,7 +15,7 @@ sudo sh -c 'echo DOCKER_OPTS=\"-H tcp://127.0.0.1:2375 -H unix:///var/run/docker
 sudo cat /etc/default/docker
 sudo service docker start
 
-wget https://github.com/openshift/origin/releases/download/v3.6.0/openshift-origin-server-v3.6.0-c4dd4cf-linux-64bit.tar.gz -O openshift.tar.gz
+wget https://github.com/openshift/origin/releases/download/v1.5.1/openshift-origin-server-v1.5.1-7b451fc-linux-64bit.tar.gz -O openshift.tar.gz
 tar xzf openshift.tar.gz -C $SETUP --strip-components 1
 
 sudo cp $SETUP/* /usr/bin
@@ -42,7 +42,6 @@ sleep 30
 KUBECONFIG=$CONFIG/master/admin.kubeconfig
 
 # Deploy HAProxy router
-oc whoami -t
 oc adm --config $KUBECONFIG policy add-scc-to-user hostnetwork system:serviceaccount:default:router
 oc adm --config $KUBECONFIG policy add-cluster-role-to-user cluster-reader system:serviceaccount:default:router
 oc adm --config $KUBECONFIG router
