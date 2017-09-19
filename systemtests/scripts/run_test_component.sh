@@ -13,6 +13,8 @@ ARTIFACTS_DIR=${ARTIFACTS_DIR:-artifacts}
 MULTITENANT=${MULTITENANT:-true}
 
 export PATH="$OC_PATH:$PATH"
+CONFIG=$OC_PATH/config
+export KUBECONFIG=$CONFIG/master/admin.kubeconfig
 
 CONFIG=$OC_PATH/config
 export KUBECONFIG=$CONFIG/master/admin.kubeconfig
