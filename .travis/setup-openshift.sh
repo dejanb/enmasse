@@ -40,6 +40,7 @@ echo "Waiting for OpenShift to start"
 sleep 30
 
 KUBECONFIG=$CONFIG/master/admin.kubeconfig
+cat $KUBECONFIG
 
 # Deploy HAProxy router
 oc adm --config $KUBECONFIG policy add-scc-to-user hostnetwork system:serviceaccount:default:router
