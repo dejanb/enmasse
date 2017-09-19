@@ -67,7 +67,7 @@ public class QueueTest extends AmqpTestBase {
         runQueueTest(client, q2);
     }
 
-    @Test
+
     public void testPersistedQueues() throws Exception {
         Destination q1 = Destination.queue("persistedQueue1", Optional.of("persisted"));
         Destination q2 = Destination.queue("persistedQueue2", Optional.of("persisted"));
@@ -79,7 +79,7 @@ public class QueueTest extends AmqpTestBase {
         runQueueTest(client, q2);
     }
 
-    @Test
+
     public void testPooledPersistedQueues() throws Exception {
         Destination q1 = Destination.queue("pooledPersistedQueue1", Optional.of("pooled-persisted"));
         Destination q2 = Destination.queue("pooledPersistedQueue2", Optional.of("pooled-persisted"));

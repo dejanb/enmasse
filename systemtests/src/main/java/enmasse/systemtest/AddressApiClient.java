@@ -120,13 +120,13 @@ public class AddressApiClient {
     /**
      * delete addresses via reset api
      *
-     * @param instanceName name of instance
+     * @param addressName name of instance
      * @param destinations variable count of destinations that you can delete
      * @throws Exception
      */
-    public void deleteAddresses(String instanceName, Destination... destinations) throws Exception {
+    public void deleteAddresses(String addressName, Destination... destinations) throws Exception {
         if (isMultitenant) {
-            doDelete("/v1/addresses/" + instanceName + "/");
+            doDelete("/v1/addresses/" + addressName + "/");
         } else {
             for (Destination destination : destinations) {
                 doDelete("/v1/addresses/default/" + destination.getAddress());
