@@ -14,6 +14,9 @@ MULTITENANT=${MULTITENANT:-true}
 
 export PATH="$OC_PATH:$PATH"
 
+CONFIG=$OC_PATH/config
+export KUBECONFIG=$CONFIG/master/admin.kubeconfig
+
 if [ "$MULTITENANT" == true ]; then
     oc login -u system:admin
     oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:$(oc project -q):enmasse-service-account
