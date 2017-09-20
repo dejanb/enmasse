@@ -47,8 +47,8 @@ public class BroadcastTest extends AmqpTestBase {
 
         assertThat(client.sendMessages(dest.getAddress(), msgs).get(1, TimeUnit.MINUTES), is(msgs.size()));
 
-        assertTrue(recvResults.get(0).get(10, TimeUnit.SECONDS).size() >= msgs.size());
-        assertTrue(recvResults.get(1).get(10, TimeUnit.SECONDS).size() >= msgs.size());
-        assertTrue(recvResults.get(2).get(10, TimeUnit.SECONDS).size() >= msgs.size());
+        assertTrue(recvResults.get(0).get(30, TimeUnit.SECONDS).size() >= msgs.size());
+        assertTrue(recvResults.get(1).get(30, TimeUnit.SECONDS).size() >= msgs.size());
+        assertTrue(recvResults.get(2).get(30, TimeUnit.SECONDS).size() >= msgs.size());
     }
 }
