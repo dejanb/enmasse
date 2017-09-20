@@ -73,7 +73,7 @@ public class AmqpClient implements AutoCloseable {
     }
 
     public Future<List<String>> recvMessages(String address, Predicate<Message> done) throws InterruptedException, IOException {
-        return recvMessages(terminusFactory.getSource(address), done, Optional.empty(), 1, TimeUnit.MINUTES);
+        return recvMessages(terminusFactory.getSource(address), done, Optional.empty(), 2, TimeUnit.MINUTES);
     }
 
     public Future<List<String>> recvMessages(Source source,String linkName, Predicate<Message> done) throws InterruptedException, IOException {
