@@ -125,13 +125,14 @@ public class AddressApiClient {
      * @throws Exception
      */
     public void deleteAddresses(String addressName, Destination... destinations) throws Exception {
-        if (isMultitenant) {
-            doDelete("/v1/addresses/" + addressName + "/");
-        } else {
-            for (Destination destination : destinations) {
-                doDelete("/v1/addresses/default/" + destination.getAddress());
-            }
+        if (!isMultitenant) {
+            addressName = "default";
         }
+
+        for (Destination destination : destinations) {
+            doDelete("/v1/addresses/" + addressName + "/" + destination.getAddress());
+        }
+
     }
 
     private void doDelete(String path) throws Exception {

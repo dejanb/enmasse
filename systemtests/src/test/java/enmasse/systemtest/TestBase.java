@@ -51,6 +51,9 @@ public abstract class TestBase {
 
     @After
     public void teardown() throws Exception {
+        if(environment.isMultitenant()){
+            addressApiClient.deleteAddressSpace(ADDRESS_SPACE);
+        }
         setAddresses();
         addressApiClient.close();
         logCollector.close();
