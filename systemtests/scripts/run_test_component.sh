@@ -19,11 +19,13 @@ export KUBECONFIG=$CONFIG/master/admin.kubeconfig
 
 if [ "$MULTITENANT" == true ]; then
     oc login -u system:admin
+    oc project ${OPENSHIFT_PROJECT}
     oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:$(oc project -q):enmasse-service-account
     oc adm policy add-cluster-role-to-user cluster-admin $OPENSHIFT_USER
 fi
 
 oc login -u ${OPENSHIFT_USER} -p ${OPENSHIFT_PASSWD} --insecure-skip-tls-verify=true ${OPENSHIFT_URL}
+oc project ${OPENSHIFT_PROJECT}
 setup_test $OPENSHIFT_PROJECT $ENMASSE_DIR $MULTITENANT $OPENSHIFT_URL $OPENSHIFT_USER
 
 pushd $SYSTEMTESTS
