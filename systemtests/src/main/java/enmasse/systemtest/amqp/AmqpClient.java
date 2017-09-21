@@ -67,16 +67,12 @@ public class AmqpClient implements AutoCloseable {
     public Future<List<String>> recvMessages(Source source, String linkName, int numMessages) throws InterruptedException, IOException {
         return recvMessages(source, numMessages, Optional.of(linkName), 2, TimeUnit.MINUTES);
     }
-    
-    public Future<List<String>> recvMessages(String address, Predicate<Message> done) throws InterruptedException, IOException {
-        return recvMessages(terminusFactory.getSource(address), done, Optional.empty(), 2, TimeUnit.MINUTES);
-    }
 
     public Future<List<String>> recvMessages(String address, Predicate<Message> done) throws InterruptedException, IOException {
         return recvMessages(terminusFactory.getSource(address), done, Optional.empty(), 2, TimeUnit.MINUTES);
     }
 
-    public Future<List<String>> recvMessages(Source source,String linkName, Predicate<Message> done) throws InterruptedException, IOException {
+    public Future<List<String>> recvMessages(Source source, String linkName, Predicate<Message> done) throws InterruptedException, IOException {
         return recvMessages(source, done, Optional.of(linkName), 2, TimeUnit.MINUTES);
     }
 
@@ -121,7 +117,7 @@ public class AmqpClient implements AutoCloseable {
         return sendMessages(address, 1, TimeUnit.MINUTES, messageList, predicate);
     }
 
-    public Future<Integer> sendMessages(String address, Message ... messages) throws IOException, InterruptedException {
+    public Future<Integer> sendMessages(String address, Message... messages) throws IOException, InterruptedException {
         return sendMessages(address, 1, TimeUnit.MINUTES, Arrays.asList(messages), new Count<>(messages.length));
     }
 
