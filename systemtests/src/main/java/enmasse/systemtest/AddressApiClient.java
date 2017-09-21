@@ -78,6 +78,35 @@ public class AddressApiClient {
     }
 
     /**
+     * get address space by address space name vie rest api
+     *
+     * @param name name of address space
+     * @return
+     * @throws InterruptedException
+     */
+    public JsonObject getAddressSpace(String name) throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(2);
+        HttpClientRequest request = httpClient.get(endpoint.getPort(), endpoint.getHost(), "/v1/addressspace/" + name);
+        request.putHeader("content-type", "application/json");
+
+        final JsonObject[] responseArray = new JsonObject[1];
+        request.handler(event -> {
+            event.bodyHandler(responseData -> {
+                responseArray[0] = responseData.toJsonObject();
+                latch.countDown();
+            });
+            if (event.statusCode() >= 200 && event.statusCode() < 300) {
+                latch.countDown();
+            } else {
+                Logging.log.warn("Error when getting address space: " + event.statusCode() + ": " + event.statusMessage());
+            }
+        });
+        request.end();
+        latch.await(30, TimeUnit.SECONDS);
+        return responseArray[0];
+    }
+
+    /**
      * give you JsonObject with AddressesList or Address kind
      *
      * @param addressSpace name of instance, this is used only if isMultitenant is set to true

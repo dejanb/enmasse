@@ -45,15 +45,16 @@ public abstract class TestBase {
         logCollector = new LogCollector(openShift, testLogs);
         addressApiClient = new AddressApiClient(openShift.getRestEndpoint(), environment.isMultitenant());
         if (environment.isMultitenant()) {
-            addressApiClient.createAddressSpace(ADDRESS_SPACE);
+            Logging.log.info("test is running in multitenant mode");
+            if (!TestUtils.existAddressSpace(addressApiClient, ADDRESS_SPACE)) {
+                addressApiClient.createAddressSpace(ADDRESS_SPACE);
+                TestUtils.waitForAddressSpaceReady(addressApiClient, ADDRESS_SPACE);
+            }
         }
     }
 
     @After
     public void teardown() throws Exception {
-        if(environment.isMultitenant()){
-            addressApiClient.deleteAddressSpace(ADDRESS_SPACE);
-        }
         setAddresses();
         addressApiClient.close();
         logCollector.close();

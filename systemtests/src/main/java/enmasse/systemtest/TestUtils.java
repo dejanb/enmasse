@@ -125,8 +125,8 @@ public class TestUtils {
         apiClient.deleteAddresses(instanceName, destinations);
     }
 
-    public static void deploy(AddressApiClient apiClient, OpenShift openShift, TimeoutBudget budget, String instanceName, HttpMethod httpMethod, Destination... destinations) throws Exception {
-        apiClient.deploy(instanceName, httpMethod, destinations);
+    public static void deploy(AddressApiClient apiClient, OpenShift openShift, TimeoutBudget budget, String addressSpace, HttpMethod httpMethod, Destination... destinations) throws Exception {
+        apiClient.deploy(addressSpace, httpMethod, destinations);
         Set<String> groups = new HashSet<>();
         for (Destination destination : destinations) {
             if (Destination.isQueue(destination) || Destination.isTopic(destination)) {
@@ -140,7 +140,46 @@ public class TestUtils {
         int expectedPods = openShift.getExpectedPods() + groups.size();
         Logging.log.info("Waiting for " + expectedPods + " pods");
         waitForExpectedPods(openShift, expectedPods, budget);
-        waitForDestinationsReady(apiClient, instanceName, destinations);
+        waitForDestinationsReady(apiClient, addressSpace, destinations);
+    }
+
+    public static boolean existAddressSpace(AddressApiClient apiClient, String addressName) throws InterruptedException {
+        JsonObject addressSpace = apiClient.getAddressSpace(addressName);
+        return addressSpace == null;
+    }
+
+    public static boolean isAddressSpaceReady(JsonObject address) {
+        boolean isReady = false;
+        if (address != null) {
+            isReady = address.getJsonObject("status").getBoolean("isReady");
+        }
+        return isReady;
+    }
+
+    /**
+     * wait until isReady parameter of Address Space is set to true within timeout
+     *
+     * @param apiClient    instance of AddressApiClient
+     * @param addressSpace name of addressSpace
+     * @throws Exception IlegalStateException if destionation is not ready within timeout
+     */
+    public static void waitForAddressSpaceReady(AddressApiClient apiClient, String addressSpace) throws Exception {
+        JsonObject addressObject = null;
+        TimeoutBudget budget = null;
+
+        boolean isReady = false;
+        budget = new TimeoutBudget(1, TimeUnit.MINUTES);
+        while (budget.timeLeft() >= 0 && !isReady) {
+            addressObject = apiClient.getAddressSpace(addressSpace);
+            isReady = isAddressSpaceReady(addressObject);
+            if (!isReady) {
+                Thread.sleep(3000);
+            }
+            Logging.log.info("Waiting until Address space: " + addressSpace + " will be in ready state");
+        }
+        if (!isReady) {
+            throw new IllegalStateException("Address Space " + addressSpace + " is not in Ready state within timeout.");
+        }
     }
 
     public static Future<List<String>> getAddresses(AddressApiClient apiClient, String instanceName, Optional<String> addressName) throws Exception {
@@ -187,7 +226,8 @@ public class TestUtils {
 
     /**
      * wait until destinations isReady parameter is set to true with 1 MINUTE timeout for each destination
-     * @param apiClient instance of AddressApiClient
+     *
+     * @param apiClient    instance of AddressApiClient
      * @param instanceName name of instance
      * @param destinations variable count of destinations
      * @throws Exception IlegalStateException if destionation is not ready within timeout
@@ -205,9 +245,10 @@ public class TestUtils {
                 if (!isReady) {
                     Thread.sleep(5000);
                 }
+                Logging.log.info("Waiting until destination: " + destination.getAddress() + " will be in ready state");
             }
             if (!isReady) {
-                throw new IllegalStateException("Address " + destination.getAddress() + " is not in Ready within timeout.");
+                throw new IllegalStateException("Address " + destination.getAddress() + " is not in Ready state within timeout.");
             }
         }
     }
