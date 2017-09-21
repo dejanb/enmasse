@@ -92,6 +92,8 @@ public class AddressApiClient {
 
         CountDownLatch latch = new CountDownLatch(2);
 
+        Logging.log.info("Following HTTP request will be used for getting address: " + path);
+
         request = httpClient.request(HttpMethod.GET, endpoint.getPort(), endpoint.getHost(), path);
         request.setTimeout(10_000);
         request.exceptionHandler(event -> {
@@ -120,7 +122,7 @@ public class AddressApiClient {
     /**
      * delete addresses via reset api
      *
-     * @param addressName name of instance
+     * @param addressName  name of instance
      * @param destinations variable count of destinations that you can delete
      * @throws Exception
      */
@@ -183,12 +185,13 @@ public class AddressApiClient {
         }
 
         CountDownLatch latch = new CountDownLatch(1);
-        HttpClientRequest request;
-        if (isMultitenant) {
-            request = httpClient.request(httpMethod, endpoint.getPort(), endpoint.getHost(), "/v1/addresses/" + addressSpace + "/");
-        } else {
-            request = httpClient.request(httpMethod, endpoint.getPort(), endpoint.getHost(), "/v1/addresses/default/");
-        }
+
+        addressSpace = isMultitenant ? addressSpace : "default";
+
+        Logging.log.info("Following HTTP request will be used for deploy: /v1/addresses/" + addressSpace + "/");
+        Logging.log.info("Following payload will used in request: " + config.toString());
+
+        HttpClientRequest request = httpClient.request(httpMethod, endpoint.getPort(), endpoint.getHost(), "/v1/addresses/" + addressSpace + "/");
         request.setTimeout(30_000);
         request.putHeader("content-type", "application/json");
         request.exceptionHandler(event -> {
