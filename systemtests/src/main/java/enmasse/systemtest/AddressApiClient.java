@@ -48,7 +48,7 @@ public class AddressApiClient {
 
         // TODO: Support using 'standard' authservice
         ObjectNode authService = spec.putObject("authenticationService");
-        authService.put("type", "none");
+        authService.put("type", "standard");
 
         CountDownLatch latch = new CountDownLatch(1);
         HttpClientRequest request;

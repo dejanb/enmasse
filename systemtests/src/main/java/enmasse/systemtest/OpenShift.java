@@ -76,6 +76,16 @@ public class OpenShift {
         }
     }
 
+    public Endpoint getKeycloakEndpoint() throws InterruptedException {
+        Route route = client.routes().inNamespace(environment.namespace()).withName("standard-authservice").get();
+        Endpoint endpoint = new Endpoint(route.getSpec().getHost(), 80);
+        if (TestUtils.resolvable(endpoint)) {
+            return endpoint;
+        } else {
+            throw new RuntimeException("Endpoint didn't resolve, cannot run systemtests");
+        }
+    }
+
     public void setDeploymentReplicas(String name, int numReplicas) {
         client.extensions().deployments()
                 .inNamespace(namespace)

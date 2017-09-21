@@ -24,6 +24,9 @@ public class Environment {
     private final String useTls = System.getenv("OPENSHIFT_USE_TLS");
     private final String messagingCert = System.getenv("OPENSHIFT_SERVER_CERT");
     private final boolean multitenant = Boolean.parseBoolean(System.getenv("OPENSHIFT_MULTITENANT"));
+    private final boolean useKeycloak = Boolean.parseBoolean(System.getenv("OPENSHIFT_USE_KEYCLOAK"));
+    private final String keycloakUser = System.getenv().getOrDefault("OPENSHIFT_KEYCLOAK_USER", "admin");
+    private final String keycloakPassword = System.getenv().getOrDefault("OPENSHIFT_KEYCLOAK_PASSWORD", "admin");
 
     public String openShiftUrl() {
         return url;
@@ -51,5 +54,17 @@ public class Environment {
 
     public boolean isMultitenant() {
         return multitenant;
+    }
+
+    public boolean useKeycloak() {
+        return useKeycloak;
+    }
+
+    public String keycloakUser() {
+        return keycloakUser;
+    }
+
+    public String keycloakPassword() {
+        return keycloakPassword;
     }
 }

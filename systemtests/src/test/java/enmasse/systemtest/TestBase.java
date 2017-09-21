@@ -33,6 +33,7 @@ public abstract class TestBase {
 
     private LogCollector logCollector;
     protected AddressApiClient addressApiClient;
+    protected KeycloakClient keycloakClient;
     protected Environment environment = new Environment();
     protected OpenShift openShift;
     private static final String ADDRESS_SPACE = "testspace";
@@ -50,6 +51,11 @@ public abstract class TestBase {
                 addressApiClient.createAddressSpace(ADDRESS_SPACE);
                 TestUtils.waitForAddressSpaceReady(addressApiClient, ADDRESS_SPACE);
             }
+        }
+        if (environment.useKeycloak()) {
+            System.out.println("Creating keycloak user");
+            keycloakClient = new KeycloakClient(openShift.getKeycloakEndpoint(), environment.keycloakUser(), environment.keycloakPassword());
+            keycloakClient.createUser(ADDRESS_SPACE, "test", "test");
         }
     }
 
