@@ -103,7 +103,7 @@ public class HttpAddressService {
     private void verifyAddresses(String addressSpaceName, AddressList addressList) {
         for (Address address : addressList) {
             if (!address.getAddressSpace().equals(addressSpaceName)) {
-                throw new IllegalArgumentException("Address space " + addressSpaceName + " does not address space specified for address " + address);
+                throw new IllegalArgumentException("Address space of " + address + " does not match address space in url: " + addressSpaceName);
             }
         }
     }
