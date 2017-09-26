@@ -24,6 +24,7 @@ router {
     mode: interior
     id: Router.${HOSTNAME}
     workerThreads: ${WORKER_THREADS}
+    defaultDistribution: ${DEFAULT_DISTRIBUTION}
 }
 
 sslProfile {

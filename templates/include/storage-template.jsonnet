@@ -127,6 +127,11 @@ local forwarder = import "forwarder.jsonnet";
           "value": "50"
         },
         {
+          "name": "ROUTER_DEFAULT_DISTRIBUTION",
+          "description": "The default distribution to use for unconfigured addresses",
+          "value": "unavailable"
+        },
+        {
           "name": "ADDRESS_SPACE",
           "description": "A valid addressSpace name for the address Space",
           "required": true

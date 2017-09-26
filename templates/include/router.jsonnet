@@ -84,6 +84,10 @@ local authService = import "auth-service.jsonnet";
         {
           "name": "LINK_CAPACITY",
           "value": "${ROUTER_LINK_CAPACITY}"
+        },
+        {
+          "name": "DEFAULT_DISTRIBUTION",
+          "value": "${ROUTER_DEFAULT_DISTRIBUTION}"
         }],
       "env": env + linkEnv + authService.envVars,
 

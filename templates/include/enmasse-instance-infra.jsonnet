@@ -80,6 +80,11 @@ local images = import "images.jsonnet";
         "value": "50"
       },
       {
+        "name": "ROUTER_DEFAULT_DISTRIBUTION",
+        "description": "The default distribution to use for unconfigured addresses",
+        "value": "unavailable"
+      },
+      {
         "name": "CONFIGSERV_REPO",
         "description": "The image to use for the configuration service",
         "value": images.configserv

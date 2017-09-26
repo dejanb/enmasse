@@ -46,6 +46,7 @@ items:
       {"metadata": {"annotations": {"addressSpace": "${ADDRESS_SPACE}"}, "labels":
       {"app": "enmasse", "capability": "router", "name": "qdrouterd"}}, "spec": {"containers":
       [{"env": [{"name": "LINK_CAPACITY", "value": "${ROUTER_LINK_CAPACITY}"}, {"name":
+      "DEFAULT_DISTRIBUTION", "value": "${ROUTER_DEFAULT_DISTRIBUTION}"}, {"name":
       "AUTHENTICATION_SERVICE_HOST", "value": "${AUTHENTICATION_SERVICE_HOST}"}, {"name":
       "AUTHENTICATION_SERVICE_PORT", "value": "${AUTHENTICATION_SERVICE_PORT}"}, {"name":
       "AUTHENTICATION_SERVICE_CLIENT_SECRET", "value": "${AUTHENTICATION_SERVICE_CLIENT_SECRET}"},
@@ -190,7 +191,9 @@ items:
       to use for the router metrics collector", "name": "ROUTER_METRICS_REPO", "value":
       "docker.io/enmasseproject/router-metrics:latest"}, {"description": "The link
       capacity setting for router", "name": "ROUTER_LINK_CAPACITY", "value": "50"},
-      {"description": "The image to use for the configuration service", "name": "CONFIGSERV_REPO",
+      {"description": "The default distribution to use for unconfigured addresses",
+      "name": "ROUTER_DEFAULT_DISTRIBUTION", "value": "unavailable"}, {"description":
+      "The image to use for the configuration service", "name": "CONFIGSERV_REPO",
       "value": "docker.io/enmasseproject/configserv:latest"}, {"description": "The
       docker image to use for the queue scheduler", "name": "QUEUE_SCHEDULER_REPO",
       "value": "docker.io/enmasseproject/queue-scheduler:latest"}, {"description":
@@ -253,18 +256,20 @@ items:
       {"description": "The image to use for the router", "name": "ROUTER_REPO", "value":
       "docker.io/enmasseproject/router:latest"}, {"description": "The link capacity
       setting for router", "name": "ROUTER_LINK_CAPACITY", "value": "50"}, {"description":
-      "A valid addressSpace name for the address Space", "name": "ADDRESS_SPACE",
-      "required": true}, {"description": "A valid name for the deployment", "name":
-      "NAME", "required": true}, {"description": "A valid group id for the deployment",
-      "name": "CLUSTER_ID", "required": true}, {"description": "The address to use
-      for the queue", "name": "ADDRESS", "value": ""}, {"description": "Name of secret
-      containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET", "required":
-      true}, {"description": "The hostname of the authentication service used by this
-      address space", "name": "AUTHENTICATION_SERVICE_HOST", "required": true}, {"description":
-      "The port of the authentication service used by this address space", "name":
-      "AUTHENTICATION_SERVICE_PORT", "required": true}, {"description": "The client
-      cert to use as identity against authentication service", "name": "AUTHENTICATION_SERVICE_CLIENT_SECRET"},
-      {"description": "The hostname to use in sasl init", "name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST"}]}'
+      "The default distribution to use for unconfigured addresses", "name": "ROUTER_DEFAULT_DISTRIBUTION",
+      "value": "unavailable"}, {"description": "A valid addressSpace name for the
+      address Space", "name": "ADDRESS_SPACE", "required": true}, {"description":
+      "A valid name for the deployment", "name": "NAME", "required": true}, {"description":
+      "A valid group id for the deployment", "name": "CLUSTER_ID", "required": true},
+      {"description": "The address to use for the queue", "name": "ADDRESS", "value":
+      ""}, {"description": "Name of secret containing router key and certificate",
+      "name": "COLOCATED_ROUTER_SECRET", "required": true}, {"description": "The hostname
+      of the authentication service used by this address space", "name": "AUTHENTICATION_SERVICE_HOST",
+      "required": true}, {"description": "The port of the authentication service used
+      by this address space", "name": "AUTHENTICATION_SERVICE_PORT", "required": true},
+      {"description": "The client cert to use as identity against authentication service",
+      "name": "AUTHENTICATION_SERVICE_CLIENT_SECRET"}, {"description": "The hostname
+      to use in sasl init", "name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST"}]}'
     queue-persisted.json: '{"apiVersion": "v1", "kind": "Template", "metadata": {"labels":
       {"app": "enmasse"}, "name": "queue-persisted"}, "objects": [{"apiVersion": "v1",
       "kind": "PersistentVolumeClaim", "metadata": {"annotations": {"addressSpace":
@@ -298,19 +303,20 @@ items:
       "value": "docker.io/enmasseproject/topic-forwarder:latest"}, {"description":
       "The image to use for the router", "name": "ROUTER_REPO", "value": "docker.io/enmasseproject/router:latest"},
       {"description": "The link capacity setting for router", "name": "ROUTER_LINK_CAPACITY",
-      "value": "50"}, {"description": "A valid addressSpace name for the address Space",
-      "name": "ADDRESS_SPACE", "required": true}, {"description": "A valid name for
-      the deployment", "name": "NAME", "required": true}, {"description": "A valid
-      group id for the deployment", "name": "CLUSTER_ID", "required": true}, {"description":
-      "The address to use for the queue", "name": "ADDRESS", "value": ""}, {"description":
-      "Name of secret containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET",
-      "required": true}, {"description": "The hostname of the authentication service
-      used by this address space", "name": "AUTHENTICATION_SERVICE_HOST", "required":
-      true}, {"description": "The port of the authentication service used by this
-      address space", "name": "AUTHENTICATION_SERVICE_PORT", "required": true}, {"description":
-      "The client cert to use as identity against authentication service", "name":
-      "AUTHENTICATION_SERVICE_CLIENT_SECRET"}, {"description": "The hostname to use
-      in sasl init", "name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST"}]}'
+      "value": "50"}, {"description": "The default distribution to use for unconfigured
+      addresses", "name": "ROUTER_DEFAULT_DISTRIBUTION", "value": "unavailable"},
+      {"description": "A valid addressSpace name for the address Space", "name": "ADDRESS_SPACE",
+      "required": true}, {"description": "A valid name for the deployment", "name":
+      "NAME", "required": true}, {"description": "A valid group id for the deployment",
+      "name": "CLUSTER_ID", "required": true}, {"description": "The address to use
+      for the queue", "name": "ADDRESS", "value": ""}, {"description": "Name of secret
+      containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET", "required":
+      true}, {"description": "The hostname of the authentication service used by this
+      address space", "name": "AUTHENTICATION_SERVICE_HOST", "required": true}, {"description":
+      "The port of the authentication service used by this address space", "name":
+      "AUTHENTICATION_SERVICE_PORT", "required": true}, {"description": "The client
+      cert to use as identity against authentication service", "name": "AUTHENTICATION_SERVICE_CLIENT_SECRET"},
+      {"description": "The hostname to use in sasl init", "name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST"}]}'
     topic-inmemory.json: '{"apiVersion": "v1", "kind": "Template", "metadata": {"labels":
       {"app": "enmasse"}, "name": "topic-inmemory"}, "objects": [{"apiVersion": "extensions/v1beta1",
       "kind": "Deployment", "metadata": {"annotations": {"addressSpace": "${ADDRESS_SPACE}",
@@ -328,20 +334,21 @@ items:
       "volumeMounts": [{"mountPath": "/var/run/artemis", "name": "vol-${NAME}"}, {"mountPath":
       "/etc/enmasse-certs", "name": "broker-internal-cert", "readOnly": true}]}, {"env":
       [{"name": "TOPIC_NAME", "value": "${ADDRESS}"}, {"name": "LINK_CAPACITY", "value":
-      "${ROUTER_LINK_CAPACITY}"}, {"name": "AUTHENTICATION_SERVICE_HOST", "value":
-      "${AUTHENTICATION_SERVICE_HOST}"}, {"name": "AUTHENTICATION_SERVICE_PORT", "value":
-      "${AUTHENTICATION_SERVICE_PORT}"}, {"name": "AUTHENTICATION_SERVICE_CLIENT_SECRET",
-      "value": "${AUTHENTICATION_SERVICE_CLIENT_SECRET}"}, {"name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST",
-      "value": "${AUTHENTICATION_SERVICE_SASL_INIT_HOST}"}], "image": "${ROUTER_REPO}",
-      "livenessProbe": {"initialDelaySeconds": 60, "tcpSocket": {"port": "amqp"}},
-      "name": "router", "ports": [{"containerPort": 5672, "name": "amqp", "protocol":
-      "TCP"}, {"containerPort": 5671, "name": "amqps", "protocol": "TCP"}, {"containerPort":
-      55671, "name": "amqps-normal", "protocol": "TCP"}, {"containerPort": 56671,
-      "name": "amqps-broker", "protocol": "TCP"}], "resources": {"limits": {"memory":
-      "256Mi"}, "requests": {"memory": "256Mi"}}, "volumeMounts": [{"mountPath": "/etc/qpid-dispatch/ssl",
-      "name": "ssl-certs", "readOnly": true}, {"mountPath": "/etc/qpid-dispatch/authservice-ca",
-      "name": "authservice-ca", "readOnly": true}, {"mountPath": "/etc/enmasse-certs",
-      "name": "broker-internal-cert", "readOnly": true}, {"mountPath": "/etc/qpid-dispatch/address-controller-ca",
+      "${ROUTER_LINK_CAPACITY}"}, {"name": "DEFAULT_DISTRIBUTION", "value": "${ROUTER_DEFAULT_DISTRIBUTION}"},
+      {"name": "AUTHENTICATION_SERVICE_HOST", "value": "${AUTHENTICATION_SERVICE_HOST}"},
+      {"name": "AUTHENTICATION_SERVICE_PORT", "value": "${AUTHENTICATION_SERVICE_PORT}"},
+      {"name": "AUTHENTICATION_SERVICE_CLIENT_SECRET", "value": "${AUTHENTICATION_SERVICE_CLIENT_SECRET}"},
+      {"name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST", "value": "${AUTHENTICATION_SERVICE_SASL_INIT_HOST}"}],
+      "image": "${ROUTER_REPO}", "livenessProbe": {"initialDelaySeconds": 60, "tcpSocket":
+      {"port": "amqp"}}, "name": "router", "ports": [{"containerPort": 5672, "name":
+      "amqp", "protocol": "TCP"}, {"containerPort": 5671, "name": "amqps", "protocol":
+      "TCP"}, {"containerPort": 55671, "name": "amqps-normal", "protocol": "TCP"},
+      {"containerPort": 56671, "name": "amqps-broker", "protocol": "TCP"}], "resources":
+      {"limits": {"memory": "256Mi"}, "requests": {"memory": "256Mi"}}, "volumeMounts":
+      [{"mountPath": "/etc/qpid-dispatch/ssl", "name": "ssl-certs", "readOnly": true},
+      {"mountPath": "/etc/qpid-dispatch/authservice-ca", "name": "authservice-ca",
+      "readOnly": true}, {"mountPath": "/etc/enmasse-certs", "name": "broker-internal-cert",
+      "readOnly": true}, {"mountPath": "/etc/qpid-dispatch/address-controller-ca",
       "name": "address-controller-ca", "readOnly": true}]}, {"env": [{"name": "TOPIC_NAME",
       "value": "${ADDRESS}"}, {"name": "CLUSTER_ID", "value": "${NAME}"}, {"name":
       "CERT_DIR", "value": "/etc/enmasse-certs"}], "image": "${TOPIC_FORWARDER_REPO}",
@@ -362,19 +369,20 @@ items:
       "value": "docker.io/enmasseproject/topic-forwarder:latest"}, {"description":
       "The image to use for the router", "name": "ROUTER_REPO", "value": "docker.io/enmasseproject/router:latest"},
       {"description": "The link capacity setting for router", "name": "ROUTER_LINK_CAPACITY",
-      "value": "50"}, {"description": "A valid addressSpace name for the address Space",
-      "name": "ADDRESS_SPACE", "required": true}, {"description": "A valid name for
-      the deployment", "name": "NAME", "required": true}, {"description": "A valid
-      group id for the deployment", "name": "CLUSTER_ID", "required": true}, {"description":
-      "The address to use for the topic", "name": "ADDRESS", "value": ""}, {"description":
-      "Name of secret containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET",
-      "required": true}, {"description": "The hostname of the authentication service
-      used by this address space", "name": "AUTHENTICATION_SERVICE_HOST", "required":
-      true}, {"description": "The port of the authentication service used by this
-      address space", "name": "AUTHENTICATION_SERVICE_PORT", "required": true}, {"description":
-      "The client cert to use as identity against authentication service", "name":
-      "AUTHENTICATION_SERVICE_CLIENT_SECRET"}, {"description": "The hostname to use
-      in sasl init", "name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST"}]}'
+      "value": "50"}, {"description": "The default distribution to use for unconfigured
+      addresses", "name": "ROUTER_DEFAULT_DISTRIBUTION", "value": "unavailable"},
+      {"description": "A valid addressSpace name for the address Space", "name": "ADDRESS_SPACE",
+      "required": true}, {"description": "A valid name for the deployment", "name":
+      "NAME", "required": true}, {"description": "A valid group id for the deployment",
+      "name": "CLUSTER_ID", "required": true}, {"description": "The address to use
+      for the topic", "name": "ADDRESS", "value": ""}, {"description": "Name of secret
+      containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET", "required":
+      true}, {"description": "The hostname of the authentication service used by this
+      address space", "name": "AUTHENTICATION_SERVICE_HOST", "required": true}, {"description":
+      "The port of the authentication service used by this address space", "name":
+      "AUTHENTICATION_SERVICE_PORT", "required": true}, {"description": "The client
+      cert to use as identity against authentication service", "name": "AUTHENTICATION_SERVICE_CLIENT_SECRET"},
+      {"description": "The hostname to use in sasl init", "name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST"}]}'
     topic-persisted.json: '{"apiVersion": "v1", "kind": "Template", "metadata": {"labels":
       {"app": "enmasse"}, "name": "topic-persisted"}, "objects": [{"apiVersion": "v1",
       "kind": "PersistentVolumeClaim", "metadata": {"annotations": {"addressSpace":
@@ -396,20 +404,21 @@ items:
       "volumeMounts": [{"mountPath": "/var/run/artemis", "name": "vol-${NAME}"}, {"mountPath":
       "/etc/enmasse-certs", "name": "broker-internal-cert", "readOnly": true}]}, {"env":
       [{"name": "TOPIC_NAME", "value": "${ADDRESS}"}, {"name": "LINK_CAPACITY", "value":
-      "${ROUTER_LINK_CAPACITY}"}, {"name": "AUTHENTICATION_SERVICE_HOST", "value":
-      "${AUTHENTICATION_SERVICE_HOST}"}, {"name": "AUTHENTICATION_SERVICE_PORT", "value":
-      "${AUTHENTICATION_SERVICE_PORT}"}, {"name": "AUTHENTICATION_SERVICE_CLIENT_SECRET",
-      "value": "${AUTHENTICATION_SERVICE_CLIENT_SECRET}"}, {"name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST",
-      "value": "${AUTHENTICATION_SERVICE_SASL_INIT_HOST}"}], "image": "${ROUTER_REPO}",
-      "livenessProbe": {"initialDelaySeconds": 60, "tcpSocket": {"port": "amqp"}},
-      "name": "router", "ports": [{"containerPort": 5672, "name": "amqp", "protocol":
-      "TCP"}, {"containerPort": 5671, "name": "amqps", "protocol": "TCP"}, {"containerPort":
-      55671, "name": "amqps-normal", "protocol": "TCP"}, {"containerPort": 56671,
-      "name": "amqps-broker", "protocol": "TCP"}], "resources": {"limits": {"memory":
-      "256Mi"}, "requests": {"memory": "256Mi"}}, "volumeMounts": [{"mountPath": "/etc/qpid-dispatch/ssl",
-      "name": "ssl-certs", "readOnly": true}, {"mountPath": "/etc/qpid-dispatch/authservice-ca",
-      "name": "authservice-ca", "readOnly": true}, {"mountPath": "/etc/enmasse-certs",
-      "name": "broker-internal-cert", "readOnly": true}, {"mountPath": "/etc/qpid-dispatch/address-controller-ca",
+      "${ROUTER_LINK_CAPACITY}"}, {"name": "DEFAULT_DISTRIBUTION", "value": "${ROUTER_DEFAULT_DISTRIBUTION}"},
+      {"name": "AUTHENTICATION_SERVICE_HOST", "value": "${AUTHENTICATION_SERVICE_HOST}"},
+      {"name": "AUTHENTICATION_SERVICE_PORT", "value": "${AUTHENTICATION_SERVICE_PORT}"},
+      {"name": "AUTHENTICATION_SERVICE_CLIENT_SECRET", "value": "${AUTHENTICATION_SERVICE_CLIENT_SECRET}"},
+      {"name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST", "value": "${AUTHENTICATION_SERVICE_SASL_INIT_HOST}"}],
+      "image": "${ROUTER_REPO}", "livenessProbe": {"initialDelaySeconds": 60, "tcpSocket":
+      {"port": "amqp"}}, "name": "router", "ports": [{"containerPort": 5672, "name":
+      "amqp", "protocol": "TCP"}, {"containerPort": 5671, "name": "amqps", "protocol":
+      "TCP"}, {"containerPort": 55671, "name": "amqps-normal", "protocol": "TCP"},
+      {"containerPort": 56671, "name": "amqps-broker", "protocol": "TCP"}], "resources":
+      {"limits": {"memory": "256Mi"}, "requests": {"memory": "256Mi"}}, "volumeMounts":
+      [{"mountPath": "/etc/qpid-dispatch/ssl", "name": "ssl-certs", "readOnly": true},
+      {"mountPath": "/etc/qpid-dispatch/authservice-ca", "name": "authservice-ca",
+      "readOnly": true}, {"mountPath": "/etc/enmasse-certs", "name": "broker-internal-cert",
+      "readOnly": true}, {"mountPath": "/etc/qpid-dispatch/address-controller-ca",
       "name": "address-controller-ca", "readOnly": true}]}, {"env": [{"name": "TOPIC_NAME",
       "value": "${ADDRESS}"}, {"name": "CLUSTER_ID", "value": "${NAME}"}, {"name":
       "CERT_DIR", "value": "/etc/enmasse-certs"}], "image": "${TOPIC_FORWARDER_REPO}",
@@ -431,18 +440,20 @@ items:
       {"description": "The image to use for the router", "name": "ROUTER_REPO", "value":
       "docker.io/enmasseproject/router:latest"}, {"description": "The link capacity
       setting for router", "name": "ROUTER_LINK_CAPACITY", "value": "50"}, {"description":
-      "A valid addressSpace name for the address Space", "name": "ADDRESS_SPACE",
-      "required": true}, {"description": "A valid name for the deployment", "name":
-      "NAME", "required": true}, {"description": "A valid group id for the deployment",
-      "name": "CLUSTER_ID", "required": true}, {"description": "The address to use
-      for the topic", "name": "ADDRESS", "value": ""}, {"description": "Name of secret
-      containing router key and certificate", "name": "COLOCATED_ROUTER_SECRET", "required":
-      true}, {"description": "The hostname of the authentication service used by this
-      address space", "name": "AUTHENTICATION_SERVICE_HOST", "required": true}, {"description":
-      "The port of the authentication service used by this address space", "name":
-      "AUTHENTICATION_SERVICE_PORT", "required": true}, {"description": "The client
-      cert to use as identity against authentication service", "name": "AUTHENTICATION_SERVICE_CLIENT_SECRET"},
-      {"description": "The hostname to use in sasl init", "name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST"}]}'
+      "The default distribution to use for unconfigured addresses", "name": "ROUTER_DEFAULT_DISTRIBUTION",
+      "value": "unavailable"}, {"description": "A valid addressSpace name for the
+      address Space", "name": "ADDRESS_SPACE", "required": true}, {"description":
+      "A valid name for the deployment", "name": "NAME", "required": true}, {"description":
+      "A valid group id for the deployment", "name": "CLUSTER_ID", "required": true},
+      {"description": "The address to use for the topic", "name": "ADDRESS", "value":
+      ""}, {"description": "Name of secret containing router key and certificate",
+      "name": "COLOCATED_ROUTER_SECRET", "required": true}, {"description": "The hostname
+      of the authentication service used by this address space", "name": "AUTHENTICATION_SERVICE_HOST",
+      "required": true}, {"description": "The port of the authentication service used
+      by this address space", "name": "AUTHENTICATION_SERVICE_PORT", "required": true},
+      {"description": "The client cert to use as identity against authentication service",
+      "name": "AUTHENTICATION_SERVICE_CLIENT_SECRET"}, {"description": "The hostname
+      to use in sasl init", "name": "AUTHENTICATION_SERVICE_SASL_INIT_HOST"}]}'
   kind: ConfigMap
   metadata:
     labels:

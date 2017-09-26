@@ -101,6 +101,9 @@ objects:
   - description: The link capacity setting for router
     name: ROUTER_LINK_CAPACITY
     value: '50'
+  - description: The default distribution to use for unconfigured addresses
+    name: ROUTER_DEFAULT_DISTRIBUTION
+    value: unavailable
   - description: A valid addressSpace name for the address Space
     name: ADDRESS_SPACE
     required: true
@@ -238,6 +241,9 @@ objects:
   - description: The link capacity setting for router
     name: ROUTER_LINK_CAPACITY
     value: '50'
+  - description: The default distribution to use for unconfigured addresses
+    name: ROUTER_DEFAULT_DISTRIBUTION
+    value: unavailable
   - description: A valid addressSpace name for the address Space
     name: ADDRESS_SPACE
     required: true
@@ -330,6 +336,8 @@ objects:
               value: ${ADDRESS}
             - name: LINK_CAPACITY
               value: ${ROUTER_LINK_CAPACITY}
+            - name: DEFAULT_DISTRIBUTION
+              value: ${ROUTER_DEFAULT_DISTRIBUTION}
             - name: AUTHENTICATION_SERVICE_HOST
               value: ${AUTHENTICATION_SERVICE_HOST}
             - name: AUTHENTICATION_SERVICE_PORT
@@ -435,6 +443,9 @@ objects:
   - description: The link capacity setting for router
     name: ROUTER_LINK_CAPACITY
     value: '50'
+  - description: The default distribution to use for unconfigured addresses
+    name: ROUTER_DEFAULT_DISTRIBUTION
+    value: unavailable
   - description: A valid addressSpace name for the address Space
     name: ADDRESS_SPACE
     required: true
@@ -542,6 +553,8 @@ objects:
               value: ${ADDRESS}
             - name: LINK_CAPACITY
               value: ${ROUTER_LINK_CAPACITY}
+            - name: DEFAULT_DISTRIBUTION
+              value: ${ROUTER_DEFAULT_DISTRIBUTION}
             - name: AUTHENTICATION_SERVICE_HOST
               value: ${AUTHENTICATION_SERVICE_HOST}
             - name: AUTHENTICATION_SERVICE_PORT
@@ -648,6 +661,9 @@ objects:
   - description: The link capacity setting for router
     name: ROUTER_LINK_CAPACITY
     value: '50'
+  - description: The default distribution to use for unconfigured addresses
+    name: ROUTER_DEFAULT_DISTRIBUTION
+    value: unavailable
   - description: A valid addressSpace name for the address Space
     name: ADDRESS_SPACE
     required: true
@@ -841,6 +857,8 @@ objects:
           - env:
             - name: LINK_CAPACITY
               value: ${ROUTER_LINK_CAPACITY}
+            - name: DEFAULT_DISTRIBUTION
+              value: ${ROUTER_DEFAULT_DISTRIBUTION}
             - name: AUTHENTICATION_SERVICE_HOST
               value: ${AUTHENTICATION_SERVICE_HOST}
             - name: AUTHENTICATION_SERVICE_PORT
@@ -1285,6 +1303,9 @@ objects:
   - description: The link capacity setting for router
     name: ROUTER_LINK_CAPACITY
     value: '50'
+  - description: The default distribution to use for unconfigured addresses
+    name: ROUTER_DEFAULT_DISTRIBUTION
+    value: unavailable
   - description: The image to use for the configuration service
     name: CONFIGSERV_REPO
     value: docker.io/enmasseproject/configserv:latest

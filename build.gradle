@@ -63,4 +63,4 @@ project('systemtests') {
     }
 }
 
-
+apply plugin: 'eclipse'
