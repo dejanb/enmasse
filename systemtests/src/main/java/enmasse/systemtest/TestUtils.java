@@ -16,6 +16,7 @@
 
 package enmasse.systemtest;
 
+import io.fabric8.kubernetes.api.model.ContainerStatus;
 import io.fabric8.kubernetes.api.model.Pod;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonArray;
@@ -83,6 +84,14 @@ public class TestUtils {
     }
 
     public static List<Pod> listRunningPods(OpenShift openShift, String addressSpace) {
+        Logging.log.info("List of running pods");
+        openShift.listPods(addressSpace).forEach(pod -> {
+            Logging.log.info("Pod: " + pod + ", phase: " + pod.getStatus().getPhase());
+            for (ContainerStatus cs : pod.getStatus().getContainerStatuses()) {
+                Logging.log.info("Pod: " + pod + ", containerID " + cs.getContainerID() + " restartCount: "
+                        + cs.getRestartCount() + ", getRunning state of container " + cs.getState().getRunning());
+            }
+        });
         return openShift.listPods(addressSpace).stream()
                 .filter(pod -> pod.getStatus().getPhase().equals("Running"))
                 .collect(Collectors.toList());
@@ -244,13 +253,13 @@ public class TestUtils {
         }
     }
 
-    private static Map<String, JsonObject> checkAddressesReady(JsonObject addressList, Destination ...destinations) {
+    private static Map<String, JsonObject> checkAddressesReady(JsonObject addressList, Destination... destinations) {
         Logging.log.info("Checking " + destinations + " for ready state");
         Map<String, JsonObject> notReadyAddresses = new HashMap<>();
         for (Destination destination : destinations) {
             JsonObject addressObject = lookupAddress(addressList, destination.getAddress());
             if (addressObject == null) {
-                notReadyAddresses.put(destination.getAddress(),  null);
+                notReadyAddresses.put(destination.getAddress(), null);
             } else if (!isAddressReady(addressObject)) {
                 notReadyAddresses.put(destination.getAddress(), addressObject);
             }
