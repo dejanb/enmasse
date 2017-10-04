@@ -46,7 +46,7 @@ function run_test() {
     else
         $CURDIR/wait_until_up.sh 4 || return 1
     fi
-    ../gradlew :systemtests:test -Psystemtests -i --rerun-tasks -Djava.net.preferIPv4Stack=true -Dtest.single=PublishTest
+    ../gradlew :systemtests:test -Psystemtests -i --rerun-tasks -Djava.net.preferIPv4Stack=true
 }
 
 function teardown_test() {

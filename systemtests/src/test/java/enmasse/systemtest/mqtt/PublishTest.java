@@ -18,6 +18,8 @@ package enmasse.systemtest.mqtt;
 
 import enmasse.systemtest.Destination;
 import enmasse.systemtest.TestBase;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -33,8 +35,12 @@ import static org.junit.Assert.assertThat;
  */
 public class PublishTest extends TestBase {
 
+
+
     @Test
     public void testPublishQoS0() throws Exception {
+        deleteAddressSpace(this.ADDRESS_SPACE);
+        createAddressSpace(this.ADDRESS_SPACE, environment.defaultAuthService());
 
         List<String> messages = Arrays.asList("foo", "bar", "baz");
         List<Integer> publisherQos = Arrays.asList(0, 0, 0);
@@ -44,6 +50,8 @@ public class PublishTest extends TestBase {
 
     @Test
     public void testPublishQoS1() throws Exception {
+        deleteAddressSpace(this.ADDRESS_SPACE);
+        createAddressSpace(this.ADDRESS_SPACE, environment.defaultAuthService());
 
         List<String> messages = Arrays.asList("foo", "bar", "baz");
         List<Integer> publisherQos = Arrays.asList(1, 1, 1);
