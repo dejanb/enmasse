@@ -39,8 +39,6 @@ public class PublishTest extends TestBase {
 
     @Test
     public void testPublishQoS0() throws Exception {
-        deleteAddressSpace(this.ADDRESS_SPACE);
-        createAddressSpace(this.ADDRESS_SPACE, environment.defaultAuthService());
 
         List<String> messages = Arrays.asList("foo", "bar", "baz");
         List<Integer> publisherQos = Arrays.asList(0, 0, 0);
@@ -50,9 +48,6 @@ public class PublishTest extends TestBase {
 
     @Test
     public void testPublishQoS1() throws Exception {
-        deleteAddressSpace(this.ADDRESS_SPACE);
-        createAddressSpace(this.ADDRESS_SPACE, environment.defaultAuthService());
-
         List<String> messages = Arrays.asList("foo", "bar", "baz");
         List<Integer> publisherQos = Arrays.asList(1, 1, 1);
 
