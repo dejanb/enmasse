@@ -84,14 +84,7 @@ public class TestUtils {
     }
 
     public static List<Pod> listRunningPods(OpenShift openShift, String addressSpace) {
-        Logging.log.info("List of running pods");
-        openShift.listPods(addressSpace).forEach(pod -> {
-            Logging.log.info("Pod: " + pod + ", phase: " + pod.getStatus().getPhase());
-            for (ContainerStatus cs : pod.getStatus().getContainerStatuses()) {
-                Logging.log.info("Pod: " + pod + ", containerID " + cs.getContainerID() + " restartCount: "
-                        + cs.getRestartCount() + ", getRunning state of container " + cs.getState().getRunning());
-            }
-        });
+
         return openShift.listPods(addressSpace).stream()
                 .filter(pod -> pod.getStatus().getPhase().equals("Running"))
                 .collect(Collectors.toList());
