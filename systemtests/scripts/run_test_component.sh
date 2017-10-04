@@ -46,6 +46,7 @@ function run_test() {
     else
         $CURDIR/wait_until_up.sh 4 || return 1
     fi
+    export GRADLE_ARGS='-Dtest.single=PublishTest'
     ../gradlew :systemtests:test -Psystemtests -i --rerun-tasks -Djava.net.preferIPv4Stack=true
 }
 
