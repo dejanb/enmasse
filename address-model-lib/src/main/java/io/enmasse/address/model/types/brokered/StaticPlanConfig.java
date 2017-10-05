@@ -30,8 +30,8 @@ class StaticPlanConfig {
             Collections.unmodifiableList(
                 Arrays.asList(
                     new Plan(
-                        "standard",
-                        "Standard",
+                        "inmemory",
+                        "In-memory",
                         "Creates topic on the broker for this address space.",
                         "03040840-a833-11e7-b92a-507b9def37d9",
                         null)));
@@ -40,8 +40,8 @@ class StaticPlanConfig {
             Collections.unmodifiableList(
                 Arrays.asList(
                     new Plan(
-                        "standard",
-                        "Standard",
+                        "inmemory",
+                        "In-memory",
                         "Creates queue on the broker for this address space.",
                         "14a84fe8-a833-11e7-81dc-507b9def37d9",
                         null)));
