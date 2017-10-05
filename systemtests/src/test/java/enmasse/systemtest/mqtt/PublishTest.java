@@ -40,14 +40,6 @@ public class PublishTest extends TestBase {
 
     @Test
     public void testPublishQoS0() throws Exception {
-        Logging.log.info("List of running pods");
-        openShift.listPods(this.ADDRESS_SPACE).forEach(pod -> {
-            Logging.log.info("Pod: " + pod + ", phase: " + pod.getStatus().getPhase());
-            for (ContainerStatus cs : pod.getStatus().getContainerStatuses()) {
-                Logging.log.info("Pod: " + pod + ", containerID " + cs.getContainerID() + " restartCount: "
-                        + cs.getRestartCount() + ", getRunning state of container " + cs.getState().getRunning());
-            }
-        });
         List<String> messages = Arrays.asList("foo", "bar", "baz");
         List<Integer> publisherQos = Arrays.asList(0, 0, 0);
 
@@ -56,14 +48,6 @@ public class PublishTest extends TestBase {
 
     @Test
     public void testPublishQoS1() throws Exception {
-        Logging.log.info("List of running pods");
-        openShift.listPods(this.ADDRESS_SPACE).forEach(pod -> {
-            Logging.log.info("Pod: " + pod + ", phase: " + pod.getStatus().getPhase());
-            for (ContainerStatus cs : pod.getStatus().getContainerStatuses()) {
-                Logging.log.info("Pod: " + pod + ", containerID " + cs.getContainerID() + " restartCount: "
-                        + cs.getRestartCount() + ", getRunning state of container " + cs.getState().getRunning());
-            }
-        });
         List<String> messages = Arrays.asList("foo", "bar", "baz");
         List<Integer> publisherQos = Arrays.asList(1, 1, 1);
 
